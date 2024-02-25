@@ -1,14 +1,15 @@
-import google from "../../assets/google.svg";
-import { Button, Image, Text } from "@chakra-ui/react";
+import { Button, Typography } from "@mui/material";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { auth, firestore } from "../../firebase/firebase";
 import useShowToast from "../../hooks/useShowToast";
 import useAuthStore from "../../store/authStore";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
+import GoogleIcon from "../../assets/google.svg";
+
 const GoogleAuth = () => {
   const [signInWithGoogle, , , error] = useSignInWithGoogle(auth);
-  const showToast = useShowToast();
+  const { showToast, Snackbar } = useShowToast();
   const loginUser = useAuthStore((state) => state.login);
 
   const handleGoogleAuth = async () => {
@@ -48,24 +49,24 @@ const GoogleAuth = () => {
       showToast("Error", error.message, "error");
     }
   };
+
   return (
     <>
       <Button
-        bg="white"
-        border="1px"
-        py="2"
-        w="full"
-        borderRadius="xl"
-        mt="5"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        fontSize="sm"
+        variant="outlined"
+        color="primary"
+        fullWidth
         onClick={handleGoogleAuth}
+        style={{ marginTop: 5 }}
       >
-        <Image src={google} alt="google" w="6" h="6" mr="3" />
-        <Text>Continue with Google</Text>
+        <img
+          src={GoogleIcon}
+          alt="Google Icon"
+          style={{ width: 24, marginRight: 8 }}
+        />
+        <Typography>Continue with Google</Typography>
       </Button>
+      {Snackbar}
     </>
   );
 };

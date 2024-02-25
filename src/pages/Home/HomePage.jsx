@@ -1,17 +1,24 @@
-import { Alert, Button, AlertIcon } from "@chakra-ui/react";
+import { Button } from "@mui/material";
+import { Alert, AlertTitle } from "@mui/material";
 import useLogout from "../../hooks/useLogout";
 
 const HomePage = () => {
   const { handleLogout, isLoggingOut, error } = useLogout();
+
   return (
     <>
-      <Button isLoading={isLoggingOut} onClick={handleLogout}>
+      <Button
+        variant="contained"
+        color="primary"
+        disabled={isLoggingOut}
+        onClick={handleLogout}
+      >
         Logout
       </Button>
 
       {error && (
-        <Alert status="error">
-          <AlertIcon />
+        <Alert severity="error" sx={{ marginTop: "16px" }}>
+          <AlertTitle>Error</AlertTitle>
           {error.message}
         </Alert>
       )}

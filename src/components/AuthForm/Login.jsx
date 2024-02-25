@@ -1,8 +1,8 @@
 import { useState } from "react";
-import passwordshow from "../../assets/eye.png";
-import GoogleAuth from "./GoogleAuth";
+import { Button, Input, Alert } from "@mui/material";
 import useLogin from "../../hooks/useLogin";
-import { Alert, AlertIcon, Button } from "@chakra-ui/react";
+import GoogleAuth from "./GoogleAuth";
+import VisibilityIcon from "../../assets/eye.png";
 
 const Login = () => {
   const [inputs, setInputs] = useState({
@@ -13,8 +13,7 @@ const Login = () => {
 
   const { loading, error, login } = useLogin();
 
-  const handlePasswordShow = (e) => {
-    e.preventDefault();
+  const handlePasswordShow = () => {
     setPasswordType(passwordType === "password" ? "text" : "password");
   };
 
@@ -26,9 +25,9 @@ const Login = () => {
           If you are already a member, please log in
         </p>
 
-        <form action="" className="flex flex-col gap-4">
-          <input
-            className="p-2 mt-8 rounded-xl border"
+        <form className="flex flex-col gap-4">
+          <Input
+            className="p-2 mt-8 rounded-xl"
             type="email"
             name="email"
             placeholder="Email"
@@ -39,8 +38,8 @@ const Login = () => {
           />
 
           <div className="relative">
-            <input
-              className="p-2 rounded-xl border w-full"
+            <Input
+              className="p-2 rounded-xl w-full"
               type={passwordType}
               name="password"
               placeholder="Password"
@@ -51,26 +50,28 @@ const Login = () => {
             />
             <div onClick={handlePasswordShow} className="cursor-pointer">
               <img
-                src={passwordshow}
+                src={VisibilityIcon}
                 alt="show password"
                 className="absolute right-2 top-2 w-6 h-6"
               />
             </div>
           </div>
           {error && (
-            <Alert status="error" className="rounded-xl">
-              <AlertIcon />
+            <Alert severity="error" className="rounded-xl">
               {error.message}
             </Alert>
           )}
           <Button
-            isLoading={loading}
+            variant="contained"
             onClick={() => login(inputs)}
-            backgroundColor={"#14A800"}
-            color={"white"}
-            _hover={{ bg: "#14a8009e" }}
+            style={{
+              backgroundColor: "#14A800",
+              color: "white",
+              marginTop: "10px",
+            }}
+            disabled={loading}
           >
-            Login
+            {loading ? "Loading..." : "Login"}
           </Button>
         </form>
 

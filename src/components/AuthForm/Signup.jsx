@@ -1,8 +1,8 @@
 import { useState } from "react";
-import passwordshow from "../../assets/eye.png";
-import GoogleAuth from "./GoogleAuth";
+import { Button, Input, Alert } from "@mui/material";
 import useSignUpWithEmailAndPassword from "../../hooks/useSignUpWithEmailAndPassword";
-import { Alert, AlertIcon, Button } from "@chakra-ui/react";
+import GoogleAuth from "./GoogleAuth";
+import VisibilityIcon from "../../assets/eye.png";
 
 const SignUp = () => {
   const [inputs, setInputs] = useState({
@@ -14,14 +14,9 @@ const SignUp = () => {
   const [passwordType, setPasswordType] = useState("password");
   const { loading, error, signup } = useSignUpWithEmailAndPassword();
 
-  const handlePasswordShow = (e) => {
-    e.preventDefault();
+  const handlePasswordShow = () => {
     setPasswordType(passwordType === "password" ? "text" : "password");
   };
-
-  // const handleSignup = () => {
-  //   console.log("Signup");
-  // };
 
   return (
     <>
@@ -31,9 +26,9 @@ const SignUp = () => {
           If you are not a member, please register
         </p>
 
-        <form action="" className="flex flex-col gap-4">
-          <input
-            className="p-2 mt-8 rounded-xl border"
+        <form className="flex flex-col gap-4">
+          <Input
+            className="p-2 mt-8 rounded-xl"
             type="email"
             placeholder="Email"
             value={inputs.email}
@@ -41,8 +36,8 @@ const SignUp = () => {
               setInputs({ ...inputs, email: e.target.value });
             }}
           />
-          <input
-            className="p-2 rounded-xl border"
+          <Input
+            className="p-2 rounded-xl"
             type="text"
             placeholder="Full Name"
             value={inputs.fullName}
@@ -51,8 +46,8 @@ const SignUp = () => {
             }}
           />
 
-          <input
-            className="p-2 rounded-xl border"
+          <Input
+            className="p-2 rounded-xl"
             type="text"
             placeholder="Username"
             value={inputs.username}
@@ -61,8 +56,8 @@ const SignUp = () => {
             }}
           />
           <div className="relative">
-            <input
-              className="p-2 rounded-xl border w-full"
+            <Input
+              className="p-2 rounded-xl w-full"
               type={passwordType}
               placeholder="Password"
               value={inputs.password}
@@ -72,7 +67,7 @@ const SignUp = () => {
             />
             <div onClick={handlePasswordShow} className="cursor-pointer">
               <img
-                src={passwordshow}
+                src={VisibilityIcon}
                 alt="show password"
                 className="absolute right-2 top-2 w-6 h-6"
               />
@@ -80,20 +75,22 @@ const SignUp = () => {
           </div>
 
           {error && (
-            <Alert status="error" className="rounded-xl">
-              <AlertIcon />
+            <Alert severity="error" className="rounded-xl">
               {error.message}
             </Alert>
           )}
 
           <Button
-            isLoading={loading}
+            variant="contained"
             onClick={() => signup(inputs)}
-            backgroundColor={"#14A800"}
-            color={"white"}
-            _hover={{ bg: "#14a8009e" }}
+            style={{
+              backgroundColor: "#14A800",
+              color: "white",
+              marginTop: "10px",
+            }}
+            disabled={loading}
           >
-            Register
+            {loading ? "Loading..." : "Register"}
           </Button>
         </form>
 
