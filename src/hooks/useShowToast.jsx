@@ -8,6 +8,7 @@ const useShowToast = () => {
   const [severity, setSeverity] = useState("success");
 
   const showToast = (title, description, status) => {
+    setMessage(title);
     setMessage(description);
     setSeverity(status);
     setOpen(true);
