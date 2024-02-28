@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 export default function MediaCard() {
     return (
-      <Card sx={{ maxWidth: 800 }}>
+      <Card sx={{ maxWidth: 800, margin: 'auto', marginLeft: '20px',  boxShadow: 3 }}>
        
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">

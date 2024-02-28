@@ -2,6 +2,7 @@ import * as React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
+import { Button} from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -15,7 +16,8 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
-
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import useLogout from "../../hooks/useLogout";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -79,7 +81,7 @@ export default function PrimarySearchAppBar() {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
-
+  const { handleLogout, isLoggingOut, error } = useLogout();
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -205,6 +207,7 @@ export default function PrimarySearchAppBar() {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
+            <Box sx={{ display: { xs: "none", md: "flex" }, color: "	#032f3c" }}></Box>
             <IconButton
               size="large"
               edge="end"
@@ -216,6 +219,22 @@ export default function PrimarySearchAppBar() {
             >
               <AccountCircle />
             </IconButton>
+            
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleLogout}
+              startIcon={<ExitToAppIcon />}
+              sx={{ marginLeft: 1, backgroundColor: "#10898d", '&:hover': { backgroundColor: "#0c6c7c" } }}
+            >
+              Logout
+            </Button>
+            {error && (
+              <Alert severity="error" sx={{ marginLeft: 1, marginTop: 1 }}>
+                <AlertTitle>Error</AlertTitle>
+                {error.message}
+              </Alert>
+            )}
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
