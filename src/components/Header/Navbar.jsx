@@ -2,7 +2,7 @@ import * as React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import { Button} from "@mui/material";
+import { Button } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -16,8 +16,11 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import UserProfileModal from "../Profile/ProfileModal";
 import useLogout from "../../hooks/useLogout";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { Alert, AlertTitle } from "@mui/material";
+
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -61,12 +64,21 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [isProfileModalOpen, setIsProfileModalOpen] = React.useState(false);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
+  };
+
+  const handleProfileModalOpen = () => {
+    setIsProfileModalOpen(true);
+  };
+
+  const handleProfileModalClose = () => {
+    setIsProfileModalOpen(false);
   };
 
   const handleMobileMenuClose = () => {
@@ -99,7 +111,7 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleProfileModalOpen}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );
@@ -207,7 +219,9 @@ export default function PrimarySearchAppBar() {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-            <Box sx={{ display: { xs: "none", md: "flex" }, color: "	#032f3c" }}></Box>
+            <Box
+              sx={{ display: { xs: "none", md: "flex" }, color: "	#032f3c" }}
+            ></Box>
             <IconButton
               size="large"
               edge="end"
@@ -219,13 +233,18 @@ export default function PrimarySearchAppBar() {
             >
               <AccountCircle />
             </IconButton>
-            
+
             <Button
+              disabled={isLoggingOut}
               variant="contained"
               color="primary"
               onClick={handleLogout}
               startIcon={<ExitToAppIcon />}
-              sx={{ marginLeft: 1, backgroundColor: "#10898d", '&:hover': { backgroundColor: "#0c6c7c" } }}
+              sx={{
+                marginLeft: 1,
+                backgroundColor: "#10898d",
+                "&:hover": { backgroundColor: "#0c6c7c" },
+              }}
             >
               Logout
             </Button>
@@ -252,6 +271,10 @@ export default function PrimarySearchAppBar() {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
+      <UserProfileModal
+        open={isProfileModalOpen}
+        handleClose={handleProfileModalClose}
+      />
     </Box>
   );
 }

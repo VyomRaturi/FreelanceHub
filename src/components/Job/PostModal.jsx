@@ -7,9 +7,8 @@ import TextField from "@mui/material/TextField";
 import usePostJob from "../../hooks/usePostJob";
 import { useTheme } from "@mui/material/styles";
 
-export default function PostModal() {
+export default function PostModal({ open, handleClose }) {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
   const [inputs, setInputs] = React.useState({ jobTitle: "", description: "" });
   const { isPosting, handlePostJob } = usePostJob();
 
@@ -29,9 +28,6 @@ export default function PostModal() {
     p: 4,
   };
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
   const handleSubmit = (event) => {
     event.preventDefault();
     handlePostJob(inputs);
@@ -40,9 +36,6 @@ export default function PostModal() {
 
   return (
     <div>
-      <Button variant="contained" onClick={handleOpen}>
-        Post Job
-      </Button>
       <Modal
         open={open}
         onClose={handleClose}
