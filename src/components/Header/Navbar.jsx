@@ -16,6 +16,10 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
+import UserProfileModal from "../Profile/ProfileModal";
+import useLogout from "../../hooks/useLogout";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { Alert, AlertTitle } from "@mui/material";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -231,6 +235,7 @@ export default function PrimarySearchAppBar() {
             </IconButton>
 
             <Button
+              disabled={isLoggingOut}
               variant="contained"
               color="primary"
               onClick={handleLogout}

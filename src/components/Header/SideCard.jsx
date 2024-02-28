@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -15,6 +15,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Link from "@mui/material/Link";
+import PostModal from "../Job/PostModal";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -29,9 +30,19 @@ const ExpandMore = styled((props) => {
 
 export default function RecipeReviewCard() {
   const [expanded, setExpanded] = React.useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+
+  const handleOpenModal = (event) => {
+    event.preventDefault();
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -53,8 +64,10 @@ export default function RecipeReviewCard() {
       <CardMedia component="img" height="194" image="src\assets\JobPost.png" />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          <Link href="/your-link">Click here to post jobs</Link>, search for
-          experienced freelancers among proficient professionals
+          <Link href="/your-link" onClick={handleOpenModal}>
+            Click here to post jobs
+          </Link>
+          , search for experienced freelancers among proficient professionals
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -88,6 +101,7 @@ export default function RecipeReviewCard() {
           </Typography>
         </CardContent>
       </Collapse>
+      <PostModal open={isModalOpen} handleClose={handleCloseModal} />
     </Card>
   );
 }
