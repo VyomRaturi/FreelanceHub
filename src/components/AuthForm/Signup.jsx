@@ -21,7 +21,7 @@ const SignUp = () => {
   return (
     <>
       <div className="px-8 md:px-16">
-        <h2 className="font-bold text-2xl text-[#14A800]">Register</h2>
+        <h2 className="font-bold text-2xl text-[#0e7b7e]">Register</h2>
         <p className="text-xs mt-4 text-[#00000]">
           If you are not a member, please register
         </p>
@@ -84,7 +84,7 @@ const SignUp = () => {
             variant="contained"
             onClick={() => signup(inputs)}
             style={{
-              backgroundColor: "#14A800",
+              backgroundColor: "#0e7b7e",
               color: "white",
               marginTop: "10px",
             }}
