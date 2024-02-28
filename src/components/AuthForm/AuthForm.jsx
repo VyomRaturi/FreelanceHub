@@ -23,7 +23,7 @@ const AuthForm = () => {
           )}
           <button
             onClick={handleSignup}
-            className="py-2 px-5 bg-[#14A800] text-white border rounded-xl hover:scale-110 duration-300"
+            className="py-2 px-5 bg-[#0e7b7e] text-white border rounded-xl hover:scale-110 duration-300"
           >
             {signup ? "Login" : "Register"}
           </button>

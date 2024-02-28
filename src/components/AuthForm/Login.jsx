@@ -20,7 +20,7 @@ const Login = () => {
   return (
     <>
       <div className="px-8 md:px-16">
-        <h2 className="font-bold text-2xl text-[#14A800]">Login</h2>
+        <h2 className="font-bold text-2xl text-[#0e7b7e]">Login</h2>
         <p className="text-xs mt-4 text-[#00000]">
           If you are already a member, please log in
         </p>
@@ -65,7 +65,7 @@ const Login = () => {
             variant="contained"
             onClick={() => login(inputs)}
             style={{
-              backgroundColor: "#14A800",
+              backgroundColor: "#0e7b7e",
               color: "white",
               marginTop: "10px",
             }}
